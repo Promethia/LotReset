@@ -61,23 +61,23 @@ public class ReadJSON {
                 			JSONObject lotC = (JSONObject) regions.get(lotIdC);
                 			ArrayList<Lot> lotInfo = new ArrayList<Lot>();
                 			if (lot != null){
-                				lotInfo.add(new Lot((long)lot.get("source_minX"),(long)lot.get("source_maxX"),(long)lot.get("source_minZ"),(long)lot.get("source_maxZ"),(String)lot.get("source_file"),lotId));
-                				lotInfo.add(new Lot((long)lot.get("dest_minX"),(long)lot.get("dest_maxX"),(long)lot.get("dest_minZ"),(long)lot.get("dest_maxZ"),(String)lot.get("dest_file"),lotId));
+                				lotInfo.add(new Lot((long)lot.get("source_minX"), (long)lot.get("source_maxX"), (long)lot.get("source_minY"), (long)lot.get("source_maxY"), (long)lot.get("source_minZ"), (long)lot.get("source_maxZ"), (String)lot.get("source_file"),lotId));
+                				lotInfo.add(new Lot((long)lot.get("dest_minX"), (long)lot.get("dest_maxX"), (long)lot.get("dest_minY"), (long)lot.get("dest_maxY"), (long)lot.get("dest_minZ"), (long)lot.get("dest_maxZ"), (String)lot.get("dest_file"),lotId));
                 				lots.add(lotInfo);
                 			}
                 			if (lotA != null){
-                				lotInfo.add(new Lot((long)lotA.get("source_minX"),(long)lotA.get("source_maxX"),(long)lotA.get("source_minZ"),(long)lotA.get("source_maxZ"),(String)lotA.get("source_file"),lotIdA));
-                				lotInfo.add(new Lot((long)lotA.get("dest_minX"),(long)lotA.get("dest_maxX"),(long)lotA.get("dest_minZ"),(long)lotA.get("dest_maxZ"),(String)lotA.get("dest_file"),lotIdA));
+                				lotInfo.add(new Lot((long)lotA.get("source_minX"), (long)lotA.get("source_maxX"), (long)lotA.get("source_minY"), (long)lotA.get("source_maxY"), (long)lotA.get("source_minZ"), (long)lotA.get("source_maxZ"), (String)lotA.get("source_file"),lotIdA));
+                				lotInfo.add(new Lot((long)lotA.get("dest_minX"), (long)lotA.get("dest_maxX"), (long)lotA.get("dest_minY"), (long)lotA.get("dest_maxY"), (long)lotA.get("dest_minZ"), (long)lotA.get("dest_maxZ"), (String)lotA.get("dest_file"),lotIdA));
                 				lots.add(lotInfo);
                 			}
                 			if (lotB != null){
-                			    lotInfo.add(new Lot((long)lotB.get("source_minX"),(long)lotB.get("source_maxX"),(long)lotB.get("source_minZ"),(long)lotB.get("source_maxZ"),(String)lotB.get("source_file"),lotIdB));
-                				lotInfo.add(new Lot((long)lotB.get("dest_minX"),(long)lotB.get("dest_maxX"),(long)lotB.get("dest_minZ"),(long)lotB.get("dest_maxZ"),(String)lotB.get("dest_file"),lotIdB));
+                			    lotInfo.add(new Lot((long)lotB.get("source_minX"), (long)lotB.get("source_maxX"), (long)lotB.get("source_minY"), (long)lotB.get("source_maxY"), (long)lotB.get("source_minZ"), (long)lotB.get("source_maxZ"), (String)lotB.get("source_file"),lotIdB));
+                				lotInfo.add(new Lot((long)lotB.get("dest_minX"), (long)lotB.get("dest_maxX"), (long)lotB.get("dest_minY"), (long)lotB.get("dest_maxY"), (long)lotB.get("dest_minZ"), (long)lotB.get("dest_maxZ"), (String)lotB.get("dest_file"),lotIdB));
                 				lots.add(lotInfo);
                 			}
                 			if (lotC != null){
-                				lotInfo.add(new Lot((long)lotC.get("source_minX"),(long)lotC.get("source_maxX"),(long)lotC.get("source_minZ"),(long)lotC.get("source_maxZ"),(String)lotC.get("source_file"),lotIdC));
-                				lotInfo.add(new Lot((long)lotC.get("dest_minX"),(long)lotC.get("dest_maxX"),(long)lotC.get("dest_minZ"),(long)lotC.get("dest_maxZ"),(String)lotC.get("dest_file"),lotIdC));
+                				lotInfo.add(new Lot((long)lotC.get("source_minX"), (long)lotC.get("source_maxX"), (long)lotC.get("source_minY"), (long)lotC.get("source_maxY"),  (long)lotC.get("source_minZ"), (long)lotC.get("source_maxZ"), (String)lotC.get("source_file"),lotIdC));
+                				lotInfo.add(new Lot((long)lotC.get("dest_minX"), (long)lotC.get("dest_maxX"), (long)lotC.get("dest_minY"), (long)lotC.get("dest_maxY"), (long)lotC.get("dest_minZ"), (long)lotC.get("dest_maxZ"), (String)lotC.get("dest_file"),lotIdC));
                 				lots.add(lotInfo);
                 			}
                 		}

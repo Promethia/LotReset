@@ -21,22 +21,17 @@ public class Main{
         }
         ArrayList<ArrayList<Lot>> lots = readJ.read("config.properties");
         //first loop grabs the chunks from each lot in the list of lots
-        for(int i = 0; i < lots.size(); ++i){
-        	if(lots.size() != 0){
-        		Lot fromLot = lots.get(i).get(0);
-            	Lot toLot = lots.get(i).get(1);
-            	ArrayList<Chunk> cList = fromLot.getChunks();
-            	ArrayList<Chunk> cListA = toLot.getChunks();
-            	//second loop swaps each chunk in the list of chunks
-            	for (int a = 0; a < cList.size() && a < cListA.size(); a++){
-            		write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
-            		write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
-            	}
-            	System.out.println("Lot " + fromLot.getLotName() + " has been reset.");
-        	}
-        	else{
-        		break;
-        	}
+        for(int i = 0; i < lots.size() && (lots.size() != 0); ++i){
+        	Lot fromLot = lots.get(i).get(0);
+            Lot toLot = lots.get(i).get(1);
+            ArrayList<Chunk> cList = fromLot.getChunks();
+            ArrayList<Chunk> cListA = toLot.getChunks();
+            //second loop swaps each chunk in the list of chunks
+            for (int a = 0; a < cList.size() && a < cListA.size(); a++){
+            	write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
+            	write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
+            }
+            System.out.println("Lot " + fromLot.getLotName() + " has been reset.");
         }
 	}
 }

@@ -1,9 +1,21 @@
 package org.seanb.lotReset.util.objects;
 
 public class Config {
+	/**
+	 * The list of the alphabet
+	 */
 	private String[] alpha;
+	/**
+	 * The list of lot types
+	 */
 	private String[] type;
+	/**
+	 * The list of worlds
+	 */
 	private String[] world;
+	/**
+	 * The JSON file location
+	 */
 	private String json;
 	
 	/**
