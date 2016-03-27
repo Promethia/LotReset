@@ -192,10 +192,12 @@ public class Lot {
 	 */
 	public ArrayList<Chunk> getChunks(){
 		ArrayList<Chunk> chunkList = new ArrayList<Chunk>();
-		for (long z = minZ; z < maxZ; z+=16){
-			for (long x = minX; x < maxX; x+=16){
-				Chunk chunk = new Chunk(x, z, x + 16, z + 16);
-				chunkList.add(chunk);
+		for (long y = minY; y < maxY; y += 16){
+			for (long z = minZ; z < maxZ; z += 16){
+				for (long x = minX; x < maxX; x += 16){
+					Chunk chunk = new Chunk(x, y, z, x + 16, maxY, z + 16);
+					chunkList.add(chunk);
+				}
 			}
 		}
 		return chunkList;

@@ -56,7 +56,7 @@ public class Chunk {
 	 * @param maxY maximum y axis value in block co-ordinates
 	 * @param maxZ maximum z axis value in block co-ordinates
 	 */
-	public Chunk(long minX, long minZ, long maxX, long maxZ){
+	public Chunk(long minX, long minY, long minZ, long maxX, long maxY, long maxZ){
 		this.x = (int)Math.floor(minX/16);
 		this.z = (int)Math.floor(minZ/16);
 		this.region = "r." + (this.x >> 5) + "." + (this.z >> 5) + ".mca";
