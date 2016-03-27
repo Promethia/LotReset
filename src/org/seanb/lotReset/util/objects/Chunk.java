@@ -58,6 +58,7 @@ public class Chunk {
 	 */
 	public Chunk(long minX, long minY, long minZ, long maxX, long maxY, long maxZ){
 		this.x = (int)Math.floor(minX/16);
+		this.y = (int)Math.floor(minY/16);
 		this.z = (int)Math.floor(minZ/16);
 		this.region = "r." + (this.x >> 5) + "." + (this.z >> 5) + ".mca";
 	}
