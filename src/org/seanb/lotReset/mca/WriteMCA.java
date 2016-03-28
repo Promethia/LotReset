@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.Deflater;
 
+import org.jnbt.CompoundTag;
+
 public class WriteMCA{
     RandomAccessFile file;
     ArrayList<Boolean> open;
@@ -138,6 +140,10 @@ public class WriteMCA{
     	deflate.finish();
     	deflate.deflate(output);
     	return output;
+    }
+    
+    public void setTag(CompoundTag tag){
+    	
     }
 
     /**

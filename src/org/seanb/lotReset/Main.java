@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.seanb.lotReset.mca.ReadMCA;
 import org.seanb.lotReset.mca.WriteMCA;
 import org.seanb.lotReset.util.objects.Lot;
-import org.seanb.lotReset.util.objects.Chunk;
+import org.seanb.lotReset.util.objects.Section;
 import org.seanb.lotReset.config.WriteConfig;
 import org.seanb.lotReset.json.ReadJSON;
 
@@ -24,12 +24,12 @@ public class Main{
         for(int i = 0; i < lots.size() && (lots.size() != 0); ++i){
         	Lot fromLot = lots.get(i).get(0);
             Lot toLot = lots.get(i).get(1);
-            ArrayList<Chunk> cList = fromLot.getChunks();
-            ArrayList<Chunk> cListA = toLot.getChunks();
+            ArrayList<Section> sList = fromLot.getSections();
+            ArrayList<Section> sListA = toLot.getSections();
             //second loop swaps each chunk in the list of chunks
-            for (int a = 0; a < cList.size() && a < cListA.size(); a++){
-            	write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
-            	write.write(read.read(fromLot.getWorld() + cList.get(a).getRegion(), cList.get(a).getX(), cList.get(a).getZ()), toLot.getWorld() + cListA.get(a).getRegion(), cListA.get(a).getX(), cListA.get(a).getZ());
+            for (int a = 0; a < sList.size() && a < sListA.size(); a++){
+            	write.write(read.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ());
+            	write.write(read.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ());
             }
             System.out.println("Lot " + fromLot.getLotName() + " has been reset.");
         }

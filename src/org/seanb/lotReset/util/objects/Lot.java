@@ -188,18 +188,18 @@ public class Lot {
 	
 	/**
 	 * Gets the chunks within the lot
-	 * @return <code>ArrayList&ltChunk&gt chunkList</code>: the list of chunks
+	 * @return <code>ArrayList&ltSection&gt sectionList</code>: a list of sections
 	 */
-	public ArrayList<Chunk> getChunks(){
-		ArrayList<Chunk> chunkList = new ArrayList<Chunk>();
-		for (long y = minY; y < maxY; y += 16){
-			for (long z = minZ; z < maxZ; z += 16){
-				for (long x = minX; x < maxX; x += 16){
-					Chunk chunk = new Chunk(x, y, z, x + 16, maxY, z + 16);
-					chunkList.add(chunk);
+	public ArrayList<Section> getSections(){
+		ArrayList<Section> sectionList = new ArrayList<Section>();
+		for (long y = this.minY; y < this.maxY; y += 16){
+			for (long z = this.minZ; z < this.maxZ; z += 16){
+				for (long x = this.minX; x < this.maxX; x += 16){
+					Section section = new Section(x, y, z);
+					sectionList.add(section);
 				}
 			}
 		}
-		return chunkList;
+		return sectionList;
 	}
 }

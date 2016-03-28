@@ -124,7 +124,7 @@ public class ReadMCA{
     /**
      * Uncompresses the compressed data
      * @param compressedData compressed ChunkData
-     * @return <code>byte[] output</code> if no errors are enountered
+     * @return <code>byte[] output</code> if no errors are encountered
      */
     public byte[] uncompress(byte[] compressedData){
     	Inflater inflate = new Inflater();
