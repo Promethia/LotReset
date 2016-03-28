@@ -3,6 +3,7 @@ package org.seanb.lotReset.mca;
 import java.io.RandomAccessFile;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.Deflater;
 
 public class WriteMCA{
     RandomAccessFile file;
@@ -124,7 +125,25 @@ public class WriteMCA{
             }
         }
     }
+    
+    /**
+     * Compresses uncompressed chunk data
+     * @param uncompressedData
+     * @return <code>byte[] output</code>
+     */
+    public byte[] compress(byte[] uncompressedData){
+    	byte[] output = new byte[1000000];
+    	Deflater deflate = new Deflater();
+    	deflate.setInput(uncompressedData);
+    	deflate.finish();
+    	deflate.deflate(output);
+    	return output;
+    }
 
+    /**
+     * Closes the file if it exists
+     * @throws IOException
+     */
     public void close() throws IOException{
         if (file != null){
             file.close();
