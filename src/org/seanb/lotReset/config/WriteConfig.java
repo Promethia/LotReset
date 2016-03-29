@@ -14,7 +14,7 @@ public class WriteConfig {
 	 * @param w list of the worlds in string form "WLD, WLD, ..."
 	 * @param j URL location of the JSON file
 	 */
-	public void writeFile(String filename, String a, String t, String w, String j){
+	public static void writeFile(String filename, String a, String t, String w, String j){
 		Properties prop = new Properties();
 		OutputStream out = null;
 		try{

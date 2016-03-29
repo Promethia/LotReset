@@ -2,6 +2,7 @@ package org.seanb.lotReset.mca;
 
 import java.io.RandomAccessFile;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class WriteMCA{
      * @param chunkX x axis value of chunk
      * @param chunkZ z axis value of chunk
      */
-    public void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
+    public void write(CompoundTag tag, byte[] chunkData, String fileName, long chunkX, long chunkY, long chunkZ){
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return;
         }
@@ -140,8 +141,9 @@ public class WriteMCA{
     	byte y = ((ByteTag)section.getTag("Y")).getByte();
     	byte y1 = ((ByteTag)section1.getTag("Y")).getByte();
     	if(y == y1){
-    		tag1.setTag("Sections", section);
+    		tag1.getListTag("Sections", 10).set(Y, sections1);
     	}
+    	StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
     	
     }
 
