@@ -1,16 +1,13 @@
 package org.seanb.lotReset.mca;
 
 import java.util.ArrayList;
-import java.util.zip.DataFormatException;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterInputStream;
 
-import org.jnbt.CompoundTag;
-import org.jnbt.NBTInputStream;
+import org.seanb.nbt.ByteTag;
+import org.seanb.nbt.CompoundTag;
+import org.seanb.nbt.ListTag;
+import org.seanb.nbt.StreamTools;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -121,37 +118,17 @@ public class ReadMCA{
         }
     }
     
-    /**
-     * Uncompresses the compressed data
-     * @param compressedData compressed ChunkData
-     * @return <code>byte[] output</code> if no errors are encountered
-     */
-    public byte[] uncompress(byte[] compressedData){
-    	Inflater inflate = new Inflater();
-    	inflate.setInput(compressedData, 0, compressedData.length);
-    	byte[] output = new byte[1000000];
-    	try {
-			inflate.inflate(output);
-			inflate.end();
-		} catch (DataFormatException e) {
-			e.printStackTrace();
-			inflate.end();
-			return null;
-		}
-    	return output;
-    }
-    
-    public CompoundTag getTag(byte[] chunkData){
-    	DataInputStream stream = new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(chunkData))));
-    	try {
-			NBTInputStream in = new NBTInputStream(stream);
-			CompoundTag out = (CompoundTag) in.readTag();
-			in.close();
-			return out;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
+    public static CompoundTag getSection(byte[] data, int Y) throws IOException{
+    	CompoundTag tag = StreamTools.readCompressed(new ByteArrayInputStream(data));
+    	ListTag sections = tag.getListTag("Sections", 10);
+    	CompoundTag section = sections.getCompoundTagAt(Y);
+    	byte y = ((ByteTag)section.getTag("Y")).getByte();
+    	if (y == (byte)Y){
+    		return section;
+    	}
+    	else{
+    		return null;
+    	}
     }
 
     /**

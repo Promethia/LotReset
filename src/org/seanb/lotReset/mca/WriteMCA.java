@@ -1,11 +1,14 @@
 package org.seanb.lotReset.mca;
 
 import java.io.RandomAccessFile;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.zip.Deflater;
 
-import org.jnbt.CompoundTag;
+import org.seanb.nbt.ByteTag;
+import org.seanb.nbt.CompoundTag;
+import org.seanb.nbt.ListTag;
+import org.seanb.nbt.StreamTools;
 
 public class WriteMCA{
     RandomAccessFile file;
@@ -128,21 +131,17 @@ public class WriteMCA{
         }
     }
     
-    /**
-     * Compresses uncompressed chunk data
-     * @param uncompressedData
-     * @return <code>byte[] output</code>
-     */
-    public byte[] compress(byte[] uncompressedData){
-    	byte[] output = new byte[1000000];
-    	Deflater deflate = new Deflater();
-    	deflate.setInput(uncompressedData);
-    	deflate.finish();
-    	deflate.deflate(output);
-    	return output;
-    }
-    
-    public void setTag(CompoundTag tag){
+    public static void setSection(CompoundTag tag, byte[] data, int Y) throws IOException{
+    	CompoundTag tag1 = StreamTools.readCompressed(new ByteArrayInputStream(data));
+    	ListTag sections = tag.getListTag("Sections", 10);
+    	ListTag sections1 = tag1.getListTag("Sections", 10);
+    	CompoundTag section = sections.getCompoundTagAt(Y);
+    	CompoundTag section1 = sections1.getCompoundTagAt(Y);
+    	byte y = ((ByteTag)section.getTag("Y")).getByte();
+    	byte y1 = ((ByteTag)section1.getTag("Y")).getByte();
+    	if(y == y1){
+    		tag1.setTag("Sections", section);
+    	}
     	
     }
 
