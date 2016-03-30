@@ -133,18 +133,26 @@ public class WriteMCA{
     }
     
     public static void setSection(CompoundTag tag, byte[] data, int Y) throws IOException{
+    	CompoundTag emptyTag = new CompoundTag();
     	CompoundTag tag1 = StreamTools.readCompressed(new ByteArrayInputStream(data));
     	ListTag sections = tag.getListTag("Sections", 10);
     	ListTag sections1 = tag1.getListTag("Sections", 10);
     	CompoundTag section = sections.getCompoundTagAt(Y);
     	CompoundTag section1 = sections1.getCompoundTagAt(Y);
-    	byte y = ((ByteTag)section.getTag("Y")).getByte();
-    	byte y1 = ((ByteTag)section1.getTag("Y")).getByte();
-    	if(y == y1){
-    		tag1.getListTag("Sections", 10).set(Y, sections1);
+    	if(!(section.equals(emptyTag)) && !(section1.equals(emptyTag))){
+        	byte y = ((ByteTag)section.getTag("Y")).getByte();
+        	byte y1 = ((ByteTag)section1.getTag("Y")).getByte();
+        	if(y == y1){
+        		tag1.getListTag("Sections", 10).set(Y, section);
+        	}
+        	StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());	
     	}
-    	StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
-    	
+    	else if(section.equals(emptyTag)){
+    		tag1.getListTag("Sections", 10).set(Y, section);
+		}
+    	else{
+    		return;
+    	}
     }
 
     /**
