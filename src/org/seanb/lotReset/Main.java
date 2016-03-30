@@ -12,7 +12,6 @@ import org.seanb.lotReset.json.ReadJSON;
 
 public class Main{
 	public static void main(String[] args){
-    	ReadMCA read = new ReadMCA();
         ReadJSON readJ = new ReadJSON();
         File config = new File("config.properties");
         if (!config.exists()){
@@ -28,8 +27,8 @@ public class Main{
             //second loop swaps each section in the list of sections
             for (int a = 0; a < sList.size() && a < sListA.size(); a++){
             	try{
-            	WriteMCA.setSection(ReadMCA.getSection(read.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), read.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
-            	WriteMCA.setSection(ReadMCA.getSection(read.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), read.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
+            	WriteMCA.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
+            	WriteMCA.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
             	}catch(IOException e){
             		e.printStackTrace();
             	}

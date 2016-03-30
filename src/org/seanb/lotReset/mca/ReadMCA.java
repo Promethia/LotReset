@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class ReadMCA{
-    RandomAccessFile file;
 
     /**
      * Read chunk data from the region file
@@ -21,7 +20,8 @@ public class ReadMCA{
      * @param chunkZ z axis value of the chunk
      * @return <code>byte[] chunkData</code> if no errors are encountered
      */
-    public byte[] read(String fileName, long chunkX, long chunkZ){
+    public static byte[] read(String fileName, long chunkX, long chunkZ){
+        RandomAccessFile file;
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return null;
         }
@@ -49,7 +49,7 @@ public class ReadMCA{
                 long a = (chunkX & 31) + (chunkZ & 31) * 32;
                 int offset = x[(int) a];
                 if (offset == 0){
-                    this.file.close();
+                    file.close();
                     return null;
                 }
                 else{
@@ -62,7 +62,7 @@ public class ReadMCA{
                         for (int j = 0; j < numSectors; ++j){
                             open.set(sectorNumber + j, true);
                         }
-                        this.file.close();
+                        file.close();
                         return null;
                     }
                     else{
@@ -76,7 +76,7 @@ public class ReadMCA{
                             for (int j = 0; j < numSectors; ++j){
                                 open.set(sectorNumber + j, true);
                             }
-                            this.file.close();
+                            file.close();
                             return null;
                         }
                         else if (length <= 0){
@@ -86,7 +86,7 @@ public class ReadMCA{
                             for (int j = 0; j < numSectors; ++j){
                                 open.set(sectorNumber + j, true);
                             }
-                            this.file.close();
+                            file.close();
                             return null;
                         }
                         else{
@@ -94,17 +94,17 @@ public class ReadMCA{
                             if (version == 1){
                                 byte[] data = new byte[length - 1];
                                 file.read(data);
-                                this.file.close();
+                                file.close();
                                 return data;
                             }
                             else if (version == 2){
                                 byte[] data = new byte[length - 1];
                                 file.read(data);
-                                this.file.close();
+                                file.close();
                                 return data;
                             }
                             else {
-                                this.file.close();
+                                file.close();
                                 return null;
                             }
                         }
@@ -120,24 +120,21 @@ public class ReadMCA{
     
     public static CompoundTag getSection(byte[] data, int Y) throws IOException{
     	CompoundTag tag = StreamTools.readCompressed(new ByteArrayInputStream(data));
+    	CompoundTag emptyTag = new CompoundTag();
     	ListTag sections = tag.getListTag("Sections", 10);
     	CompoundTag section = sections.getCompoundTagAt(Y);
-    	byte y = ((ByteTag)section.getTag("Y")).getByte();
-    	if (y == (byte)Y){
-    		return section;
+    	if(!(section.equals(emptyTag))){
+        	byte y = ((ByteTag)section.getTag("Y")).getByte();
+        	if (y == (byte)Y){
+        		return section;
+        	}
+        	else{
+        		return null;
+        	}
+    		
     	}
     	else{
-    		return null;
+    		return emptyTag;
     	}
-    }
-
-    /**
-     * Closes the file if the file was not null
-     * @throws IOException
-     */
-    public void close() throws IOException{
-        if (file != null){
-            file.close();
-        }
     }
 }

@@ -12,8 +12,6 @@ import org.seanb.nbt.ListTag;
 import org.seanb.nbt.StreamTools;
 
 public class WriteMCA{
-    RandomAccessFile file;
-    ArrayList<Boolean> open;
 
     /**
      * Write chunk data to region file
@@ -22,7 +20,9 @@ public class WriteMCA{
      * @param chunkX x axis value of chunk
      * @param chunkZ z axis value of chunk
      */
-    public void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
+    public static void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
+        RandomAccessFile file;
+        ArrayList<Boolean> open;
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return;
         }
@@ -54,7 +54,7 @@ public class WriteMCA{
                 int numSectors = offset & 255;
                 int e = (chunkData.length + 5) / 4096 + 1;
                 if (e >= 256){
-                    this.file.close();
+                    file.close();
                     return;
                 }
                 if (sectorNumber != 0 && numSectors == 1){
@@ -123,7 +123,7 @@ public class WriteMCA{
                         System.out.println("\nWRITE SUCCESSFUL TYPE C\nChunk @ " + chunkX + ", " + chunkZ + "\n");
                     }
                 }
-                this.file.close();
+                file.close();
             } catch (IOException e){
                 System.out.println("FILE ERROR FROM WRITING CHUNK");
                 e.printStackTrace();
@@ -147,21 +147,16 @@ public class WriteMCA{
         	}
         	StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());	
     	}
-    	else if(section.equals(emptyTag)){
+    	else if(section.equals(emptyTag) && !(section1.equals(emptyTag))){
     		tag1.getListTag("Sections", 10).set(Y, section);
+    		StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
 		}
+    	else if(!(section.equals(emptyTag)) && section1.equals(emptyTag)){
+    		tag1.getListTag("Sections", 10).set(Y, section);
+    		StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
+    	}
     	else{
     		return;
     	}
-    }
-
-    /**
-     * Closes the file if it exists
-     * @throws IOException
-     */
-    public void close() throws IOException{
-        if (file != null){
-            file.close();
-        }
     }
 }
