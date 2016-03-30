@@ -1,5 +1,10 @@
 package org.seanb.lotReset.util.objects;
 
+/**
+ * Chunk object
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ */
 public class Chunk {
 	/**
 	 * The x axis value of the chunk in chunk co-ordinates
@@ -15,18 +20,14 @@ public class Chunk {
 	private String region;
 	
 	/**
-	 * Make a chunk object from block co-ordinates x, z, and then the max x and z
+	 * Make a chunk object from block co-ordinates x, z 
 	 * and set the region file location of the chunk to be r.x>>5.z>>5.mca
-	 * @param minX minimum x axis value in block co-ordinates
-	 * @param minY minimum y axis value in block co-ordinates
-	 * @param minZ minimum z axis value in block co-ordinates
-	 * @param maxX maximum x axis value in block co-ordinates
-	 * @param maxY maximum y axis value in block co-ordinates
-	 * @param maxZ maximum z axis value in block co-ordinates
+	 * @param x x axis value in block co-ordinates
+	 * @param z z axis value in block co-ordinates
 	 */
-	public Chunk(long minX, long minZ){
-		this.x = (int)Math.floor(minX/16.);
-		this.z = (int)Math.floor(minZ/16.);
+	public Chunk(long x, long z){
+		this.x = (int)Math.floor(x/16.);
+		this.z = (int)Math.floor(z/16.);
 		this.region = "r." + (this.x >> 5) + "." + (this.z >> 5) + ".mca";
 	}
 	

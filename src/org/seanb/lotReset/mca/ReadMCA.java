@@ -11,6 +11,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+/**
+ * Utility for reading .mca files
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ */
 public class ReadMCA{
 
     /**
@@ -118,6 +123,13 @@ public class ReadMCA{
         }
     }
     
+    /**
+     * Reads Section data from chunk
+     * @param data chunk data
+     * @param Y section number (will be from 0 - 15)
+     * @return <code>{@link CompoundTag} section</code>
+     * @throws IOException
+     */
     public static CompoundTag getSection(byte[] data, int Y) throws IOException{
     	CompoundTag tag = StreamTools.readCompressed(new ByteArrayInputStream(data));
     	CompoundTag emptyTag = new CompoundTag();

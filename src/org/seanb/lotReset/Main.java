@@ -10,14 +10,23 @@ import org.seanb.lotReset.util.objects.Section;
 import org.seanb.lotReset.config.WriteConfig;
 import org.seanb.lotReset.json.ReadJSON;
 
-public class Main{
+/**
+ * Main Class
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ * @version 3.3.2
+ */
+public class Main{	
+	/**
+	 * Main running method
+	 * @param args usually empty, unless config.properties does not exist, then it will have 4 entries: Alphabet, LotTypes, Worlds, JSON file URL
+	 */
 	public static void main(String[] args){
-        ReadJSON readJ = new ReadJSON();
         File config = new File("config.properties");
         if (!config.exists()){
         	WriteConfig.writeFile("config.properties", args[0], args[1], args[2], args[3]);
         }
-        ArrayList<ArrayList<Lot>> lots = readJ.read("config.properties");
+        ArrayList<ArrayList<Lot>> lots = ReadJSON.read("config.properties");
         //first loop grabs the sections from each lot in the list of lots
         for(int i = 0; i < lots.size() && (lots.size() != 0); ++i){
         	Lot fromLot = lots.get(i).get(0);

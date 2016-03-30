@@ -2,6 +2,11 @@ package org.seanb.lotReset.util.objects;
 
 import java.util.ArrayList;
 
+/**
+ * Lot object
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ */
 public class Lot {
 	/**
 	 * The minimum x axis value

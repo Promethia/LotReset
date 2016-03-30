@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/**
+ * Utility for writing config files
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 2.0
+ */
 public class WriteConfig {
 	/**
 	 * Write configuration file

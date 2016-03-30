@@ -11,6 +11,11 @@ import org.seanb.nbt.CompoundTag;
 import org.seanb.nbt.ListTag;
 import org.seanb.nbt.StreamTools;
 
+/**
+ * Utility for writing .mca files
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ */
 public class WriteMCA{
 
     /**
@@ -132,6 +137,13 @@ public class WriteMCA{
         }
     }
     
+    /**
+     * Writes section data to chunk
+     * @param tag {@link CompoundTag} section to write to chunk
+     * @param data chunk data to write to
+     * @param Y section number in chunk (will be from 0 - 15)
+     * @throws IOException
+     */
     public static void setSection(CompoundTag tag, byte[] data, int Y) throws IOException{
     	CompoundTag emptyTag = new CompoundTag();
     	CompoundTag tag1 = StreamTools.readCompressed(new ByteArrayInputStream(data));

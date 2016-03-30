@@ -1,5 +1,10 @@
 package org.seanb.lotReset.util.objects;
 
+/**
+ * Config object
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 2.0
+ */
 public class Config {
 	/**
 	 * The list of the alphabet

@@ -16,20 +16,24 @@ import org.seanb.lotReset.config.ReadConfig;
 import org.seanb.lotReset.util.objects.Config;
 import org.seanb.lotReset.util.objects.Lot;
 
+/**
+ * Utility for reading JSON files from a URL location
+ * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @since 1.0
+ */
 public class ReadJSON {
 	/**Read JSON file by using configuration file's JSON value,
 	 * which points to the file
 	 * @param configLocation String which specifies the location of the JSON file
 	 * @return <code>ArrayList&ltArrayList&ltLot&gt&gt lots</code> if no errors are encountered
 	 */
-    public ArrayList<ArrayList<Lot>> read(String configLocation){
+    public static ArrayList<ArrayList<Lot>> read(String configLocation){
         JSONParser parser = new JSONParser();
         URL url;
         File f;
         //lots is multidimensional in this format: {{fromLot,toLot},{fromLot,toLot},{fromLot,toLot},etc...}
         ArrayList<ArrayList<Lot>> lots = new ArrayList<ArrayList<Lot>>();
-        ReadConfig read = new ReadConfig();
-        Config config = read.read(configLocation);
+        Config config = ReadConfig.read(configLocation);
         final String[] alphabet = config.getAlpha();
         final String[] types = config.getType();
         final String[] worlds = config.getWorld();
