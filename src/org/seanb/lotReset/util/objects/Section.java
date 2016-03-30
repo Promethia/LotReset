@@ -5,7 +5,7 @@ public class Section extends Chunk {
 	
 	public Section(long x, long y, long z){
 		super(x, z);
-		this.y = (long)Math.floor(y/16.) - 1;
+		this.y = (long)Math.floor(y/16.);
 	}
 	
 	public long getY(){
