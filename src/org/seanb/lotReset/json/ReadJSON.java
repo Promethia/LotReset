@@ -85,6 +85,9 @@ public class ReadJSON {
             	}
             }
             f.delete();
+            if(f.exists()){
+            	System.out.println("Could not delete temp.json");
+            }
         } catch(IOException e){
             System.out.println("FILE ERROR FROM READING JSON");
             e.printStackTrace();

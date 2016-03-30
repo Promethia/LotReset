@@ -22,7 +22,7 @@ public class WriteMCA{
      * @param chunkX x axis value of chunk
      * @param chunkZ z axis value of chunk
      */
-    public void write(CompoundTag tag, byte[] chunkData, String fileName, long chunkX, long chunkY, long chunkZ){
+    public void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return;
         }

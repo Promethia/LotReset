@@ -21,7 +21,7 @@ public class ReadMCA{
      * @param chunkZ z axis value of the chunk
      * @return <code>byte[] chunkData</code> if no errors are encountered
      */
-    public byte[] read(String fileName, long chunkX, long chunkZ, long chunkY){
+    public byte[] read(String fileName, long chunkX, long chunkZ){
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return null;
         }
