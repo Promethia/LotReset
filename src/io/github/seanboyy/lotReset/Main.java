@@ -1,14 +1,14 @@
-package org.seanb.lotReset;
+package io.github.seanboyy.lotReset;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import org.seanb.lotReset.mca.ReadMCA;
-import org.seanb.lotReset.mca.WriteMCA;
-import org.seanb.lotReset.util.objects.Lot;
-import org.seanb.lotReset.util.objects.Section;
-import org.seanb.lotReset.config.WriteConfig;
-import org.seanb.lotReset.json.ReadJSON;
+import io.github.seanboyy.lotReset.mca.ReadMCA;
+import io.github.seanboyy.lotReset.mca.WriteMCA;
+import io.github.seanboyy.lotReset.util.objects.Lot;
+import io.github.seanboyy.lotReset.util.objects.Section;
+import io.github.seanboyy.lotReset.config.WriteConfig;
+import io.github.seanboyy.lotReset.json.ReadJSON;
 
 /**
  * Main Class

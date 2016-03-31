@@ -1,4 +1,4 @@
-package org.seanb.lotReset.util.objects;
+package io.github.seanboyy.lotReset.util.objects;
 
 /**
  * Section object

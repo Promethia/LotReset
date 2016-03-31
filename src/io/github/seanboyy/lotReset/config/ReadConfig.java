@@ -1,11 +1,11 @@
-package org.seanb.lotReset.config;
+package io.github.seanboyy.lotReset.config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.seanb.lotReset.util.objects.Config;
+import io.github.seanboyy.lotReset.util.objects.Config;
 
 /**
  * Utility for reading config files

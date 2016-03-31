@@ -1,11 +1,11 @@
-package org.seanb.lotReset.mca;
+package io.github.seanboyy.lotReset.mca;
 
 import java.util.ArrayList;
 
-import org.seanb.nbt.ByteTag;
-import org.seanb.nbt.CompoundTag;
-import org.seanb.nbt.ListTag;
-import org.seanb.nbt.StreamTools;
+import io.github.seanboyy.nbt.ByteTag;
+import io.github.seanboyy.nbt.CompoundTag;
+import io.github.seanboyy.nbt.ListTag;
+import io.github.seanboyy.nbt.StreamTools;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package org.seanb.lotReset.json;
+package io.github.seanboyy.lotReset.json;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,9 +12,9 @@ import java.net.URL;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.seanb.lotReset.config.ReadConfig;
-import org.seanb.lotReset.util.objects.Config;
-import org.seanb.lotReset.util.objects.Lot;
+import io.github.seanboyy.lotReset.config.ReadConfig;
+import io.github.seanboyy.lotReset.util.objects.Config;
+import io.github.seanboyy.lotReset.util.objects.Lot;
 
 /**
  * Utility for reading JSON files from a URL location
