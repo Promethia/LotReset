@@ -51,14 +51,14 @@ public class ReadJSON {
             Object obj = parser.parse(new FileReader(f));
             JSONObject jsonObj = (JSONObject) obj;
             JSONObject regions = (JSONObject) jsonObj.get("Regions");
-            for (int b = 0; b < worlds.length; ++b){
-            	for (int e = 0; e < types.length; ++e){
-            		for (int c = 0; c < alphabet.length; ++c){
+            for (String a : worlds){
+            	for (String b : types){
+            		for (String c : alphabet){
                 		for (int d = 1; d <= alphabet.length; ++d){
-                			String lotId = worlds[b] + "-" + types[e] + "-" + alphabet[c] + d;
-                			String lotIdA = worlds[b] + "_" + types[e] + "-" + alphabet[c] + d;
-                			String lotIdB = worlds[b] + "-" + types[e] + "_" + alphabet[c] + d;
-                			String lotIdC = worlds[b] + "_" + types[e] + "_" + alphabet[c] + d;
+                			String lotId = a + "-" + b + "-" + c + d;
+                			String lotIdA = a + "_" + b + "-" + c + d;
+                			String lotIdB = a + "-" + b + "_" + c + d;
+                			String lotIdC = a + "_" + b + "_" + c + d;
                 			JSONObject lot = (JSONObject) regions.get(lotId);
                 			JSONObject lotA = (JSONObject) regions.get(lotIdA);
                 			JSONObject lotB = (JSONObject) regions.get(lotIdB);

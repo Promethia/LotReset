@@ -28,9 +28,9 @@ public class Main{
         }
         ArrayList<ArrayList<Lot>> lots = ReadJSON.read("config.properties");
         //first loop grabs the sections from each lot in the list of lots
-        for(int i = 0; i < lots.size() && (lots.size() != 0); ++i){
-        	Lot fromLot = lots.get(i).get(0);
-            Lot toLot = lots.get(i).get(1);
+        for(ArrayList<Lot> lot : lots){
+        	Lot fromLot = lot.get(0);
+            Lot toLot = lot.get(1);
             ArrayList<Section> sList = fromLot.getSections();
             ArrayList<Section> sListA = toLot.getSections();
             //second loop swaps each section in the list of sections
