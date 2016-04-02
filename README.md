@@ -38,6 +38,6 @@ java -jar lot-reset-X.Y.Z.jar
 + **ALL VALUES IN STRING LISTS MUST BE SEPARATED BY A COMMA AND THEN A SPACE**
 + EX:
 ```
-java -jar lot-reset-X.Y.Z.jar "A, B, C, D, E, F, G" "LOT, XROAD, ZROAD, CORNER" "MAIN, WORLD2" "http://yourdomain.com/reset"
+java -jar lot-reset-X.Y.Z.jar "A, B, C, D, E, F, G" "LOT, XROAD, ZROAD, CORNER" "MAIN, WORLD2" http://yourdomain.com/reset
 ```
 **If any errors arise please let me know what the stacktrace says or what happened. I cannot fix what I do not know about**
