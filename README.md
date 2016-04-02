@@ -21,7 +21,7 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 
 + You have a cuboid defined lot region to reset/change in one location ("TO LOT")
 + You have a cuboid defined lot region to grab data from in another location ("FROM LOT")
-++ FROM LOT and TO LOT are defined/exist in a valid Minecraft world/server
++ FROM LOT and TO LOT are defined/exist in a valid Minecraft world/server
 + You have a JSON file located somewhere that is formatted as depicted in [temp.json](https://github.com/Promethia/LotReset/blob/master/temp.json)
 
 
