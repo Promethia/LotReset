@@ -31,11 +31,11 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 java -jar lot-reset-X.Y.Z.jar
 ```
 + If this is the first time you run the jar, you will also need to specify four arguments after the name of the jar:
-++ The list of the alphabet
-++ The list of lot types
-++ The list of worlds
-++ The location of the JSON file for the resetting
-++ **ALL VALUES IN STRING LISTS MUST BE SEPARATED BY A COMMA AND THEN A SPACE**
++ The list of the alphabet
++ The list of lot types
++ The list of worlds
++ The location of the JSON file for the resetting
++ **ALL VALUES IN STRING LISTS MUST BE SEPARATED BY A COMMA AND THEN A SPACE**
 + EX:
 ```
 java -jar lot-reset-X.Y.Z.jar "A, B, C, D, E, F, G" "LOT, XROAD, ZROAD, CORNER" "MAIN, WORLD2" "http://yourdomain.com/reset"
