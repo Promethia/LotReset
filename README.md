@@ -17,7 +17,7 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 
 ##How to use
 
-###PRE-REQUISITES:
+####PRE-REQUISITES:
 
 + You have a cuboid defined lot region to reset/change in one location ("TO LOT")
 + You have a cuboid defined lot region to grab data from in another location ("FROM LOT")
