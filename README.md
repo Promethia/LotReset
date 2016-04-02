@@ -41,4 +41,5 @@ java -jar lot-reset-X.Y.Z.jar
 java -jar lot-reset-X.Y.Z.jar "A, B, C, D, E, F, G" "LOT, XROAD, ZROAD, CORNER" "MAIN, WORLD2" http://yourdomain.com/reset
 ```
 + If you need to change anything **do not** run the jar with new arguments. This will not change anything. Go into the config.properties file and edit the values there **still keeping string lists comma + space separated**
+
 **If any errors arise please let me know what the stacktrace says or what happened. I cannot fix what I do not know about**
