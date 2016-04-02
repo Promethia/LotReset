@@ -14,7 +14,7 @@ import io.github.seanboyy.lotReset.json.ReadJSON;
  * Main Class
  * @author <a href=https://github.com/seanboyy>Seanboyy</a>
  * @since 1.0
- * @version 3.3.2
+ * @version 3.3.3
  */
 public class Main{	
 	/**
