@@ -1,3 +1,26 @@
+/*
+ * This is a part of LotReset, licensed under the MIT License (MIT).
+ * 
+ * Copyright (c) 2016 Seanboyy (Sean Bamford)
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTIBILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIBLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package io.github.seanboyy.lotReset.json;
 
 import java.io.File;
@@ -18,14 +41,15 @@ import io.github.seanboyy.lotReset.util.objects.Lot;
 
 /**
  * Utility for reading JSON files from a URL location
- * @author <a href=https://github.com/seanboyy>Seanboyy</a>
+ * @author <a href=https://www.github.com/seanboyy>Seanboyy</a>
  * @since 1.0
  */
 public class ReadJSON {
 	/**Read JSON file by using configuration file's JSON value,
 	 * which points to the file
-	 * @param configLocation String which specifies the location of the JSON file
+	 * @param configLocation String which specifies the location of the config.properties file
 	 * @return <code>ArrayList&ltArrayList&ltLot&gt&gt lots</code> if no errors are encountered
+	 * @since 1.0 - Implemented config.properties in 2.0
 	 */
     public static ArrayList<ArrayList<Lot>> read(String configLocation){
         JSONParser parser = new JSONParser();
