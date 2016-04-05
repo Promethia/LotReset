@@ -24,13 +24,17 @@
 package io.github.seanboyy.lotReset.mca;
 
 import java.util.ArrayList;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
 
 import io.github.seanboyy.nbt.ByteTag;
 import io.github.seanboyy.nbt.CompoundTag;
 import io.github.seanboyy.nbt.ListTag;
 import io.github.seanboyy.nbt.StreamTools;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -46,10 +50,10 @@ public class ReadMCA{
      * @param fileName region file to read from
      * @param chunkX x axis value of the chunk
      * @param chunkZ z axis value of the chunk
-     * @return <code>byte[] chunkData</code> if no errors are encountered
+     * @return <code>DataInputStream data</code> if no errors are encountered
      * @since 1.0
      */
-    public static byte[] read(String fileName, long chunkX, long chunkZ){
+    public static DataInputStream read(String fileName, long chunkX, long chunkZ){
         RandomAccessFile file;
         if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
             return null;
@@ -124,13 +128,13 @@ public class ReadMCA{
                                 byte[] data = new byte[length - 1];
                                 file.read(data);
                                 file.close();
-                                return data;
+                                return new DataInputStream(new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(data))));
                             }
                             else if (version == 2){
                                 byte[] data = new byte[length - 1];
                                 file.read(data);
                                 file.close();
-                                return data;
+                                return new DataInputStream(new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(data))));
                             }
                             else {
                                 file.close();
@@ -149,16 +153,17 @@ public class ReadMCA{
     
     /**
      * Reads Section data from chunk
-     * @param data chunk data
+     * @param is chunk data stream
      * @param Y section number (will be from 0 - 15)
      * @return <code>{@link CompoundTag} section</code>
      * @throws IOException
      * @since 3.0
      */
-    public static CompoundTag getSection(byte[] data, int Y) throws IOException{
-    	CompoundTag tag = StreamTools.readCompressed(new ByteArrayInputStream(data));
+    public static CompoundTag getSection(DataInputStream is, int Y) throws IOException{
+    	CompoundTag tag = StreamTools.read(is);
     	CompoundTag emptyTag = new CompoundTag();
-    	ListTag sections = tag.getListTag("Sections", 10);
+    	CompoundTag level = tag.getCompoundTag("Level");
+    	ListTag sections = level.getListTag("Sections", 10);
     	CompoundTag section = sections.getCompoundTagAt(Y);
     	if(!(section.equals(emptyTag))){
         	byte y = ((ByteTag)section.getTag("Y")).getByte();

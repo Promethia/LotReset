@@ -37,7 +37,7 @@ import io.github.seanboyy.lotReset.json.ReadJSON;
  * Main Class
  * @author <a href=https://www.github.com/seanboyy>Seanboyy</a>
  * @since 1.0
- * @version 3.3.3
+ * @version 3.3.5
  */
 public class Main{	
 	/**
@@ -45,6 +45,7 @@ public class Main{
 	 * @param args usually empty, unless config.properties does not exist, then it will have 4 entries: Alphabet, LotTypes, Worlds, JSON file URL
 	 */
 	public static void main(String[] args){
+		WriteMCA write = new WriteMCA();
         File config = new File("config.properties");
         if (!config.exists()){
         	WriteConfig.writeFile("config.properties", args[0], args[1], args[2], args[3]);
@@ -59,8 +60,8 @@ public class Main{
             //second loop swaps each section in the list of sections
             for (int a = 0; a < sList.size() && a < sListA.size(); a++){
             	try{
-            	WriteMCA.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
-            	WriteMCA.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sList.get(a).getY());
+            		write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), sList.get(a).getRegion());
+            		write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), sList.get(a).getRegion());
             	}catch(IOException e){
             		e.printStackTrace();
             	}

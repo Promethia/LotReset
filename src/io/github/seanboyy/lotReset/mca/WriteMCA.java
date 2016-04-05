@@ -24,14 +24,15 @@
 package io.github.seanboyy.lotReset.mca;
 
 import java.io.RandomAccessFile;
-import java.io.ByteArrayInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.DeflaterOutputStream;
 
 import io.github.seanboyy.nbt.ByteTag;
 import io.github.seanboyy.nbt.CompoundTag;
-import io.github.seanboyy.nbt.ListTag;
 import io.github.seanboyy.nbt.StreamTools;
 
 /**
@@ -124,7 +125,7 @@ public class WriteMCA{
                         file.seek((long)(a * 4));
                         file.writeInt(x[(int) a]);
                         for (int j = 0; j < e; ++j){
-                            open.set(sectorNumber + j, false);
+                            open.set(sectorNumber + j, Boolean.valueOf(false));
                         }
                         file.seek(0L);
                         file.seek((long)(sectorNumber * 4096));
@@ -139,7 +140,7 @@ public class WriteMCA{
                         System.out.println(sectorNumber);
                         for (int k = 0; k < e; ++k){
                             file.write(empty);
-                            open.add(false);
+                            open.add(Boolean.valueOf(false));
                         }
                         file.seek((long)(sectorNumber * 4096));
                         file.writeInt(chunkData.length + 1);
@@ -160,40 +161,63 @@ public class WriteMCA{
             }
         }
     }
-    
+
     /**
-     * Writes section data to chunk
-     * @param tag {@link CompoundTag} section to write to chunk
-     * @param data chunk data to write to
-     * @param Y section number in chunk (will be from 0 - 15)
+     * Writes Section data to chunk
+     * @param tag1 from section data
+     * @param tag2 to section data
+     * @param X
+     * @param Y
+     * @param Z
+     * @param region
      * @throws IOException
-     * @since 3.0
      */
-    public static void setSection(CompoundTag tag, byte[] data, int Y) throws IOException{
+    public void setSection(CompoundTag tag1, CompoundTag tag2, int X, int Y, int Z, String region) throws IOException{
+    	DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new WriteMCA.Buffer(X, Z, region))));;
     	CompoundTag emptyTag = new CompoundTag();
-    	CompoundTag tag1 = StreamTools.readCompressed(new ByteArrayInputStream(data));
-    	ListTag sections = tag.getListTag("Sections", 10);
-    	ListTag sections1 = tag1.getListTag("Sections", 10);
-    	CompoundTag section = sections.getCompoundTagAt(Y);
-    	CompoundTag section1 = sections1.getCompoundTagAt(Y);
-    	if(!(section.equals(emptyTag)) && !(section1.equals(emptyTag))){
-        	byte y = ((ByteTag)section.getTag("Y")).getByte();
-        	byte y1 = ((ByteTag)section1.getTag("Y")).getByte();
+    	if(!(tag1.equals(emptyTag)) && !(tag2.equals(emptyTag))){
+        	byte y = ((ByteTag)tag1.getTag("Y")).getByte();
+        	byte y1 = ((ByteTag)tag2.getTag("Y")).getByte();
         	if(y == y1){
-        		tag1.getListTag("Sections", 10).set(Y, section);
+        		tag2.getListTag("Sections", 10).set(Y, tag1);
         	}
-        	StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());	
+        	else
+        	{
+        		out.close();
+        		return;
+        	}
+        	StreamTools.writeCompressed(tag2, out);
+        	out.close();
     	}
-    	else if(section.equals(emptyTag) && !(section1.equals(emptyTag))){
-    		tag1.getListTag("Sections", 10).set(Y, section);
-    		StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
+    	else if(tag1.equals(emptyTag) && !(tag2.equals(emptyTag))){
+    		tag2.getListTag("Sections", 10).set(Y, tag1);
+        	StreamTools.writeCompressed(tag2, out);
+        	out.close();
 		}
-    	else if(!(section.equals(emptyTag)) && section1.equals(emptyTag)){
-    		tag1.getListTag("Sections", 10).set(Y, section);
-    		StreamTools.writeCompressed(tag1, new ByteArrayOutputStream());
+    	else if(!(tag1.equals(emptyTag)) && tag2.equals(emptyTag)){
+    		tag2.getListTag("Sections", 10).set(Y, tag1);
+        	StreamTools.writeCompressed(tag2, out);
+        	out.close();
     	}
     	else{
+    		out.close();
     		return;
+    	}
+    }
+    
+    class Buffer extends ByteArrayOutputStream{
+    	private int x;
+    	private int z;
+    	private String region;
+    	public Buffer(int x, int z, String region){
+    		super(8096);
+    		this.x = x;
+    		this.z = z;
+    		this.region = region;
+    	}
+    	
+    	public void close() throws IOException{
+    		WriteMCA.write(this.buf, this.region, this.x, this.z);
     	}
     }
 }

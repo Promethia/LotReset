@@ -64,7 +64,7 @@ public class ReadJSON {
         try{
             url = new URL(config.getJSON());
             InputStream in = url.openStream();
-            f = new File("temp.json");
+            f = File.createTempFile("temp", "json");
             FileWriter file = new FileWriter(f);
             Scanner input = new Scanner(in);
             while(input.hasNextLine()){
@@ -111,10 +111,6 @@ public class ReadJSON {
                 		}
             		}
             	}
-            }
-            f.delete();
-            if(f.exists()){
-            	System.out.println("Could not delete temp.json");
             }
         } catch(IOException e){
             System.out.println("FILE ERROR FROM READING JSON");
