@@ -166,56 +166,71 @@ public class WriteMCA{
      * Writes Section data to chunk
      * @param tag1 from section data
      * @param tag2 to section data
-     * @param X
-     * @param Y
-     * @param Z
-     * @param region
+     * @param X x value of chunk
+     * @param Y y value of section
+     * @param Z z value of chunk
+     * @param region region name of chunk
      * @throws IOException
      */
     public void setSection(CompoundTag tag1, CompoundTag tag2, int X, int Y, int Z, String region) throws IOException{
-    	DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new WriteMCA.Buffer(X, Z, region))));;
+    	DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new WriteMCA.ChunkStream(X, Z, region))));;
     	CompoundTag emptyTag = new CompoundTag();
-    	if(!(tag1.equals(emptyTag)) && !(tag2.equals(emptyTag))){
-        	byte y = ((ByteTag)tag1.getTag("Y")).getByte();
-        	byte y1 = ((ByteTag)tag2.getTag("Y")).getByte();
-        	if(y == y1){
-        		tag2.getListTag("Sections", 10).set(Y, tag1);
-        	}
-        	else
-        	{
-        		out.close();
-        		return;
-        	}
-        	StreamTools.writeCompressed(tag2, out);
-        	out.close();
-    	}
-    	else if(tag1.equals(emptyTag) && !(tag2.equals(emptyTag))){
-    		tag2.getListTag("Sections", 10).set(Y, tag1);
-        	StreamTools.writeCompressed(tag2, out);
-        	out.close();
-		}
-    	else if(!(tag1.equals(emptyTag)) && tag2.equals(emptyTag)){
-    		tag2.getListTag("Sections", 10).set(Y, tag1);
-        	StreamTools.writeCompressed(tag2, out);
-        	out.close();
-    	}
-    	else{
+    	try{
+    		if(!(tag1.equals(emptyTag)) && !(tag2.equals(emptyTag))){
+        		byte y = ((ByteTag)tag1.getTag("Y")).getByte();
+        		byte y1 = ((ByteTag)tag2.getTag("Y")).getByte();
+        		if(y == y1){
+        			tag2.getListTag("Sections", 10).set(Y, tag1);
+        		}
+        		else
+        		{
+        			out.close();
+        			return;
+        		}
+        		StreamTools.writeCompressed(tag2, out);
+    		}
+    		else if(tag1.equals(emptyTag) && !(tag2.equals(emptyTag))){
+    			tag2.getListTag("Sections", 10).set(Y, tag1);
+    			StreamTools.writeCompressed(tag2, out);
+			}
+    		else if(!(tag1.equals(emptyTag)) && tag2.equals(emptyTag)){
+    			tag2.getListTag("Sections", 10).set(Y, tag1);
+        		StreamTools.writeCompressed(tag2, out);
+    		}
+    		else{
+    			out.close();
+    			return;
+    		}
+    	}finally{
     		out.close();
-    		return;
     	}
     }
     
-    class Buffer extends ByteArrayOutputStream{
+    /**
+     * Chunk data stream helper
+     * @author <a href=http://www.github.com/seanboyy>Seanboyy</a>
+     * @since 3.3.4
+     */
+    public class ChunkStream extends ByteArrayOutputStream{
     	private int x;
     	private int z;
     	private String region;
-    	public Buffer(int x, int z, String region){
+    	/**
+    	 * Create a new chunk data stream
+    	 * @param x chunk x value
+    	 * @param z chunk z value
+    	 * @param region chunk region name
+    	 */
+    	public ChunkStream(int x, int z, String region){
     		super(8096);
     		this.x = x;
     		this.z = z;
     		this.region = region;
     	}
     	
+    	/**
+    	 * On closing the stream, write the stream data to the region file.
+    	 */
     	public void close() throws IOException{
     		WriteMCA.write(this.buf, this.region, this.x, this.z);
     	}
