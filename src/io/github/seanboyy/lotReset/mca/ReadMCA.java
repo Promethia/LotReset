@@ -55,7 +55,7 @@ public class ReadMCA{
      */
     public static DataInputStream read(String fileName, long chunkX, long chunkZ){
         RandomAccessFile file;
-        if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
+        if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 32))){
             return null;
         }
         else{
