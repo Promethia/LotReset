@@ -1,30 +1,30 @@
-#Lot Reset
+# Lot Reset
 
 A Minecraft lot resetting tool
 
-####License
+#### License
 
 This code is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
 
-##Dependencies
+## Dependencies
 
 + **[json-simple-1.1.1.jar](https://github.com/fangyidong/json-simple)** - Adds JSON functionality
 + **[nbt-1.2.0.jar](https://github.com/seanboyy/NBT)** - Adds NBT functionality
 
-##Documentation
+## Documentation
 
 [Javadoc](https://seanboyy.github.io/doc/LotReset/index.html)
 
-##How to use
+## How to use
 
-####PRE-REQUISITES:
+#### PRE-REQUISITES:
 
 + You have a cuboid defined lot region to reset/change in one location ("TO LOT")
 + You have a cuboid defined lot region to grab data from in another location ("FROM LOT")
 + FROM LOT and TO LOT are defined/exist in a valid Minecraft world/server
 + You have a JSON file located somewhere that is formatted as depicted in [temp.json](https://github.com/Promethia/LotReset/blob/master/temp.json)
 
-####STEPS
+#### STEPS
 + Download the [latest release](https://github.com/Promethia/LotReset/releases)
 + In your preferred command line executer of choice run
 ```
