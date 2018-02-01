@@ -1,18 +1,18 @@
 /*
  * This is a part of LotReset, licensed under the MIT License (MIT).
- * 
+ *
  * Copyright (c) 2016 Seanboyy (Sean Bamford)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTIBILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -50,17 +50,14 @@ public class WriteMCA{
      * @param chunkZ z axis value of chunk
      * @since 1.0
      */
-    public static void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
+    private static void write(byte[] chunkData, String fileName, long chunkX, long chunkZ){
         RandomAccessFile file;
         ArrayList<Boolean> open;
-        if (((chunkX & 31) < 0 ) || ((chunkX & 31) >=32) || ((chunkZ & 31) < 0 || ((chunkZ & 31) >= 31))){
-            return;
-        }
-        else{
+        if((chunkZ & 31) < 31){
             try{
                 file = new RandomAccessFile(fileName, "rw");
                 int cDLen = (int)file.length() / 4096;
-                open = new ArrayList<Boolean>(cDLen);
+                open = new ArrayList<>(cDLen);
                 for (int l = 0; l < cDLen; ++l){
                     open.add(true);
                 }
@@ -103,14 +100,14 @@ public class WriteMCA{
                     if (firstEmpty != -1){
                         for (int i = firstEmpty; i < open.size(); ++i){
                             if (h != 0){
-                                if (open.get(i).booleanValue()){
+                                if (open.get(i)){
                                     ++h;
                                 }
                                 else{
                                     h = 0;
                                 }
                             }
-                            else if (open.get(i).booleanValue()){
+                            else if (open.get(i)){
                                 firstEmpty = i;
                                 h = 1;
                             }
@@ -122,10 +119,10 @@ public class WriteMCA{
                     if (h >= e){
                         sectorNumber = firstEmpty;
                         x[(int) a] = (firstEmpty << 8 | e);
-                        file.seek((long)(a * 4));
+                        file.seek(a * 4);
                         file.writeInt(x[(int) a]);
                         for (int j = 0; j < e; ++j){
-                            open.set(sectorNumber + j, Boolean.valueOf(false));
+                            open.set(sectorNumber + j, false);
                         }
                         file.seek(0L);
                         file.seek((long)(sectorNumber * 4096));
@@ -140,7 +137,7 @@ public class WriteMCA{
                         System.out.println(sectorNumber);
                         for (int k = 0; k < e; ++k){
                             file.write(empty);
-                            open.add(Boolean.valueOf(false));
+                            open.add(false);
                         }
                         file.seek((long)(sectorNumber * 4096));
                         file.writeInt(chunkData.length + 1);
@@ -148,7 +145,7 @@ public class WriteMCA{
                         file.write(chunkData, 0, chunkData.length);
                         x[(int) a] = (firstEmpty << 8 | e);
                         file.seek(0L);
-                        file.seek((long)(a * 4));
+                        file.seek(a * 4);
                         file.writeInt(x[(int) a]);
                         System.out.println("\nWRITE SUCCESSFUL TYPE C\nChunk @ " + chunkX + ", " + chunkZ + "\n");
                     }
@@ -157,7 +154,6 @@ public class WriteMCA{
             } catch (IOException e){
                 System.out.println("FILE ERROR FROM WRITING CHUNK");
                 e.printStackTrace();
-                return;
             }
         }
     }
@@ -170,69 +166,59 @@ public class WriteMCA{
      * @param Y y value of section
      * @param Z z value of chunk
      * @param region region name of chunk
-     * @throws IOException
+     * @throws IOException Can throw IOException if outputting streams fail
      */
     public void setSection(CompoundTag tag1, CompoundTag tag2, int X, int Y, int Z, String region) throws IOException{
-    	DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new WriteMCA.ChunkStream(X, Z, region))));;
-    	CompoundTag emptyTag = new CompoundTag();
-    	try{
-    		if(!(tag1.equals(emptyTag)) && !(tag2.equals(emptyTag))){
-        		byte y = ((ByteTag)tag1.getTag("Y")).getByte();
-        		byte y1 = ((ByteTag)tag2.getTag("Y")).getByte();
-        		if(y == y1){
-        			tag2.getListTag("Sections", 10).set(Y, tag1);
-        		}
-        		else
-        		{
-        			out.close();
-        			return;
-        		}
-        		StreamTools.writeCompressed(tag2, out);
-    		}
-    		else if(tag1.equals(emptyTag) && !(tag2.equals(emptyTag))){
-    			tag2.getListTag("Sections", 10).set(Y, tag1);
-    			StreamTools.writeCompressed(tag2, out);
-			}
-    		else if(!(tag1.equals(emptyTag)) && tag2.equals(emptyTag)){
-    			tag2.getListTag("Sections", 10).set(Y, tag1);
-        		StreamTools.writeCompressed(tag2, out);
-    		}
-    		else{
-    			out.close();
-    			return;
-    		}
-    	}finally{
-    		out.close();
-    	}
+        CompoundTag emptyTag = new CompoundTag();
+        try(DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new DeflaterOutputStream(new WriteMCA.ChunkStream(X, Z, region))))) {
+            if (!(tag1.equals(emptyTag)) && !(tag2.equals(emptyTag))) {
+                byte y = ((ByteTag) tag1.getTag("Y")).getByte();
+                byte y1 = ((ByteTag) tag2.getTag("Y")).getByte();
+                if (y == y1) {
+                    tag2.getListTag("Sections", 10).set(Y, tag1);
+                } else {
+                    out.close();
+                }
+                StreamTools.writeCompressed(tag2, out);
+            } else if (tag1.equals(emptyTag) && !(tag2.equals(emptyTag))) {
+                tag2.getListTag("Sections", 10).set(Y, tag1);
+                StreamTools.writeCompressed(tag2, out);
+            } else if (!(tag1.equals(emptyTag)) && tag2.equals(emptyTag)) {
+                tag2.getListTag("Sections", 10).set(Y, tag1);
+                StreamTools.writeCompressed(tag2, out);
+            } else {
+                out.close();
+            }
+        }
     }
-    
+
     /**
      * Chunk data stream helper
      * @author <a href=http://www.github.com/seanboyy>Seanboyy</a>
      * @since 3.3.4
      */
     public class ChunkStream extends ByteArrayOutputStream{
-    	private int x;
-    	private int z;
-    	private String region;
-    	/**
-    	 * Create a new chunk data stream
-    	 * @param x chunk x value
-    	 * @param z chunk z value
-    	 * @param region chunk region name
-    	 */
-    	public ChunkStream(int x, int z, String region){
-    		super(8096);
-    		this.x = x;
-    		this.z = z;
-    		this.region = region;
-    	}
-    	
-    	/**
-    	 * On closing the stream, write the stream data to the region file.
-    	 */
-    	public void close() throws IOException{
-    		WriteMCA.write(this.buf, this.region, this.x, this.z);
-    	}
+        private int x;
+        private int z;
+        private String region;
+        /**
+         * Create a new chunk data stream
+         * @param x chunk x value
+         * @param z chunk z value
+         * @param region chunk region name
+         */
+        ChunkStream(int x, int z, String region){
+            super(8096);
+            this.x = x;
+            this.z = z;
+            this.region = region;
+        }
+
+        /**
+         * On closing the stream, write the stream data to the region file.
+         */
+        public void close() {
+            WriteMCA.write(this.buf, this.region, this.x, this.z);
+        }
     }
 }

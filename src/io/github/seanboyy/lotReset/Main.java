@@ -1,18 +1,18 @@
 /*
  * This is a part of LotReset, licensed under the MIT License (MIT).
- * 
+ *
  * Copyright (c) 2016 Seanboyy (Sean Bamford)
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTIBILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -37,36 +37,36 @@ import io.github.seanboyy.lotReset.json.ReadJSON;
  * Main Class
  * @author <a href=https://www.github.com/seanboyy>Seanboyy</a>
  * @since 1.0
- * @version 3.4.0
+ * @version 3.4.1
  */
-public class Main{	
-	/**
-	 * Main running method
-	 * @param args usually empty, unless config.properties does not exist, then it will have 4 entries: Alphabet, LotTypes, Worlds, JSON file URL
-	 */
-	public static void main(String[] args){
-		WriteMCA write = new WriteMCA();
+public class Main{
+    /**
+     * Main running method
+     * @param args usually empty, unless config.properties does not exist, then it will have 4 entries: Alphabet, LotTypes, Worlds, JSON file URL
+     */
+    public static void main(String[] args){
+        WriteMCA write = new WriteMCA();
         File config = new File("config.properties");
         if (!config.exists()){
-        	WriteConfig.writeFile("config.properties", args[0], args[1], args[2], args[3]);
+            WriteConfig.writeFile("config.properties", args[0], args[1], args[2], args[3]);
         }
         ArrayList<ArrayList<Lot>> lots = ReadJSON.read("config.properties");
         //first loop grabs the sections from each lot in the list of lots
         for(ArrayList<Lot> lot : lots){
-        	Lot fromLot = lot.get(0);
+            Lot fromLot = lot.get(0);
             Lot toLot = lot.get(1);
             ArrayList<Section> sList = fromLot.getSections();
             ArrayList<Section> sListA = toLot.getSections();
             //second loop swaps each section in the list of sections
             for (int a = 0; a < sList.size() && a < sListA.size(); a++){
-            	try{
-            		write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), fromLot.getWorld() + sList.get(a).getRegion());
-            		write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), fromLot.getWorld() + sList.get(a).getRegion());
-            	}catch(IOException e){
-            		e.printStackTrace();
-            	}
+                try{
+                    write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), fromLot.getWorld() + sList.get(a).getRegion());
+                    write.setSection(ReadMCA.getSection(ReadMCA.read(fromLot.getWorld() + sList.get(a).getRegion(), sList.get(a).getX(), sList.get(a).getZ()), (int)sList.get(a).getY()), ReadMCA.getSection(ReadMCA.read(toLot.getWorld() + sListA.get(a).getRegion(), sListA.get(a).getX(), sListA.get(a).getZ()), (int)sListA.get(a).getY()), (int)sList.get(a).getX(), (int)sList.get(a).getY(), (int)sList.get(a).getZ(), fromLot.getWorld() + sList.get(a).getRegion());
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
             }
             System.out.println("Lot " + fromLot.getLotName() + " has been reset.");
         }
-	}
+    }
 }
