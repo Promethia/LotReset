@@ -9,7 +9,7 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 ## Dependencies
 
 + **[json-simple-1.1.1.jar](https://github.com/fangyidong/json-simple)** - Adds JSON functionality
-+ **[nbt-1.2.0.jar](https://github.com/seanboyy/NBT)** - Adds NBT functionality
++ **[nbt-2.0.0.jar](https://github.com/seanboyy/NBT)** - Adds NBT functionality
 
 ## Documentation
 
