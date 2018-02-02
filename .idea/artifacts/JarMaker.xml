@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="lot-reset-3.4.1.jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/lot_reset_3_4_1_jar</output-path>
-    <root id="archive" name="LotResetter.jar">
+  <artifact type="jar" name="JarMaker">
+    <output-path>$PROJECT_DIR$/out/artifacts/JarMaker</output-path>
+    <root id="archive" name="lot-reset-3.4.1.jar">
       <element id="module-output" name="LotReset" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/nbt-2.0.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../dependencies/json-simple-1.1.1.jar" path-in-jar="/" />

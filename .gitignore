@@ -5,7 +5,6 @@
 
 # Package Files #
 *.jar
-!nbt-1.2.0.jar
 *.war
 *.ear
 
