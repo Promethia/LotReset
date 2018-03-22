@@ -26,7 +26,7 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 
 #### STEPS
 + Download the [latest release](https://github.com/Promethia/LotReset/releases)
-+ In your preferred command line executer of choice run
++ In your preferred command line executor of choice run
 ```
 java -jar lot-reset-X.Y.Z.jar
 ```
