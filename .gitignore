@@ -16,4 +16,6 @@ hs_err_pid*
 /bin/*
 /dependencies/*
 /out/*
-/.idea/*
+/.idea/**
+/Disabled/**
+*.iml
