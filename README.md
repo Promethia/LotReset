@@ -22,7 +22,7 @@ This code is open-sourced software licensed under the [MIT license](http://opens
 + You have a cuboid defined lot region to reset/change in one location ("TO LOT")
 + You have a cuboid defined lot region to grab data from in another location ("FROM LOT")
 + FROM LOT and TO LOT are defined/exist in a valid Minecraft world/server
-+ You have a JSON file located somewhere that is formatted as depicted in [temp.json](https://github.com/Promethia/LotReset/blob/master/temp.json)
++ You have a JSON file located somewhere that is formatted as depicted in [temp.json](https://github.com/Promethia/LotReset/blob/master/temp.json) 
 
 #### STEPS
 + Download the [latest release](https://github.com/Promethia/LotReset/releases)
@@ -36,6 +36,7 @@ java -jar lot-reset-X.Y.Z.jar
 + The list of worlds
 + The location of the JSON file for the resetting
 + **ALL VALUES IN STRING LISTS MUST BE SEPARATED BY A COMMA AND THEN A SPACE**
++ Lots will be looked for in the JSON file in the format `WORLD-TYPE-ALPHABETNUMBER`, so using the following example, `MAIN-LOT-A1` is a valid lot
 + EX:
 ```
 java -jar lot-reset-X.Y.Z.jar "A, B, C, D, E, F, G" "LOT, XROAD, ZROAD, CORNER" "MAIN, WORLD2" http://yourdomain.com/reset

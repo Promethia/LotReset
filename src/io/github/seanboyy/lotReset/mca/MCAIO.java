@@ -151,7 +151,7 @@ public class MCAIO {
             try{
                 file = new RandomAccessFile(fileName, "rw");
                 int cDLen = (int)file.length() / 4096;
-                ArrayList<Boolean> open = new ArrayList<Boolean>(cDLen);
+                ArrayList<Boolean> open = new ArrayList<>(cDLen);
                 for (int l = 0; l < cDLen; ++l){
                     open.add(true);
                 }
